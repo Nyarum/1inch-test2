@@ -1,0 +1,16 @@
+
+For run the service you need:
+- Setup NATS
+-- docker network create app-tier --driver bridge
+-- docker run -d --name nats-server \
+    --network app-tier \
+    --publish 4222:4222 \
+    --publish 6222:6222 \
+    --publish 8222:8222 \
+    bitnami/nats:latest
+
+- Build and run service
+-- make run/service
+
+- Build and run client in separated terminal
+-- make run/client
