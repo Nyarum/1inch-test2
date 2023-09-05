@@ -3,12 +3,18 @@ package main
 import (
 	"1inch/internal"
 	"log"
+	"os"
 
 	"github.com/nats-io/nats.go"
 )
 
 func main() {
-	natsClient, err := internal.NewNATS(nats.DefaultURL)
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = nats.DefaultURL
+	}
+
+	natsClient, err := internal.NewNATS(natsURL)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -14,3 +14,6 @@ For run the service you need:
 
 - Build and run client in separated terminal
 -- make run/client
+
+or use docker-compose:
+- docker-compose up

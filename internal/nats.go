@@ -38,6 +38,7 @@ func (n *NATS) Pull(path string) <-chan Message {
 		err := json.Unmarshal(m.Data, &msg)
 		if err != nil {
 			log.Printf("can't unmarshal nats message, err - %v\n", err)
+			return
 		}
 
 		ch <- msg

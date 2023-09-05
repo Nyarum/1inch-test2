@@ -5,6 +5,7 @@ import (
 	"1inch/internal"
 	"flag"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -17,6 +18,11 @@ const (
 )
 
 func main() {
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = nats.DefaultURL
+	}
+
 	uniswapv3Pools := flag.String("uniswapv3-pools", UniswapV3PoolAddrs, "Uniswap V3 addresses of pools")
 	uniswapv2Pools := flag.String("uniswapv2-pools", UniswapV2PoolAddrs, "Uniswap V2 addresses of pools")
 	flag.Parse()
@@ -26,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	natsClient, err := internal.NewNATS(nats.DefaultURL)
+	natsClient, err := internal.NewNATS(natsURL)
 	if err != nil {
 		log.Fatal(err)
 	}
